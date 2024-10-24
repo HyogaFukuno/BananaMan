@@ -1,0 +1,37 @@
+:root {
+    --banana-font: initial;
+    --banana-font-definition: resource("Fonts & Materials/ZenKakuGothicNew SDF");
+}
+
+
+ZenKakuExtraTextElement {
+    -unity-font: var(--banana-font);
+    -unity-font-definition: var(--banana-font-definition);
+
+    color: whitesmoke;
+    font-size: 44px;
+}
+
+ZenKakuLargeTextElement {
+    -unity-font: var(--banana-font);
+    -unity-font-definition: var(--banana-font-definition);
+
+    color: whitesmoke;
+    font-size: 34px;
+}
+
+ZenKakuNormalTextElement {
+    -unity-font: var(--banana-font);
+    -unity-font-definition: var(--banana-font-definition);
+
+    color: whitesmoke;
+    font-size: 24px;
+}
+
+ZenKakuSmallTextElement {
+    -unity-font: var(--banana-font);
+    -unity-font-definition: var(--banana-font-definition);
+
+    color: whitesmoke;
+    font-size: 14px;
+}

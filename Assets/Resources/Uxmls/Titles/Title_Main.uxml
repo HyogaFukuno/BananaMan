@@ -1,0 +1,22 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" xmlns:banana="BananaMan.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/Style%20Sheets/Runtime/Title_Main.uss?fileID=7433441132597879392&amp;guid=b0d4d310796524892b1d4ea9a6bc843f&amp;type=3#Title_Main" />
+    <banana:RootUIElement>
+        <engine:VisualElement name="background" />
+        <engine:VisualElement name="main-view">
+            <engine:VisualElement name="ui-container">
+                <engine:VisualElement name="ui-title-logo-container">
+                    <banana:ZenKakuExtraTextElement text="&lt;Style=&quot;Black&quot;&gt;BananaMan" />
+                </engine:VisualElement>
+                <engine:VisualElement name="ui-selectable-container">
+                    <banana:ZenKakuNormalTextElement name="continue-text" text="Continue" />
+                    <banana:ZenKakuNormalTextElement name="new-game-text" text="New Game" />
+                    <banana:ZenKakuNormalTextElement name="options-text" text="Options" />
+                </engine:VisualElement>
+                <engine:VisualElement name="ui-app-info-container">
+                    <banana:ZenKakuSmallTextElement name="app-info-version-text" text="Ver.0.0.0" />
+                    <banana:ZenKakuSmallTextElement name="app-info-company-text" text="Author Hoge" />
+                </engine:VisualElement>
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </banana:RootUIElement>
+</engine:UXML>
