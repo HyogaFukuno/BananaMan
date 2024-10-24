@@ -8,9 +8,9 @@
                     <banana:ZenKakuExtraTextElement text="&lt;Style=&quot;Black&quot;&gt;BananaMan" />
                 </engine:VisualElement>
                 <engine:VisualElement name="ui-selectable-container">
-                    <banana:ZenKakuNormalTextElement name="continue-text" text="Continue" />
-                    <banana:ZenKakuNormalTextElement name="new-game-text" text="New Game" />
-                    <banana:ZenKakuNormalTextElement name="options-text" text="Options" />
+                    <banana:ZenKakuNormalTextElement name="continue-text" focusable="true" text="&lt;Style=&quot;Bold&quot;&gt; Continue" />
+                    <banana:ZenKakuNormalTextElement name="new-game-text" focusable="true" text="&lt;Style=&quot;Bold&quot;&gt; New Game" />
+                    <banana:ZenKakuNormalTextElement name="options-text" focusable="true" text="&lt;Style=&quot;Bold&quot;&gt; Options" />
                 </engine:VisualElement>
                 <engine:VisualElement name="ui-app-info-container">
                     <banana:ZenKakuSmallTextElement name="app-info-version-text" text="Ver.0.0.0" />

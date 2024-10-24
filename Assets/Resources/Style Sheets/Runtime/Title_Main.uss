@@ -37,3 +37,19 @@
     height: auto;
     margin-top: 60px;
 }
+
+ZenKakuNormalTextElement {
+    margin: 8px 0;
+    color: gray;
+    -unity-font-style: italic;
+    transition-duration: 0.2s;
+}
+
+ZenKakuNormalTextElement:focus {
+    color: whitesmoke;
+}
+
+ZenKakuSmallTextElement {
+    margin: 4px 0;
+    -unity-font-style: italic;
+}
