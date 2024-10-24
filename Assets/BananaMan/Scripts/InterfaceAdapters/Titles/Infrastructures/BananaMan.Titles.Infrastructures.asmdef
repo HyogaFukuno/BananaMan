@@ -1,7 +1,13 @@
 {
     "name": "BananaMan.Titles.Infrastructures",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:1546f65838ed43b7b35155c31e1c6db3",
+        "GUID:25c1e311137104ed4b7bdf3431859ea8",
+        "GUID:06d9cf40ec13748799fdf31a0ed10293",
+        "GUID:7fe26489daf31491daed9277382fe71c",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

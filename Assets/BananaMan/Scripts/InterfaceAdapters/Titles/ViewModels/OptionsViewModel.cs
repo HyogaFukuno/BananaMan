@@ -7,80 +7,81 @@ using Cysharp.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using R3;
 using UIToolkit.R3.Integration;
-using UnityEngine;
 using UnityEngine.UIElements;
 using ZLogger;
 
 namespace BananaMan.Titles.ViewModels;
 
-public sealed class MainViewModel : ViewModelBase<MainView>
+public sealed class OptionsViewModel : ViewModelBase<OptionsView>
 {
-    enum ModeSelectType
+    enum OptionsType
     {
-        Continue,
-        NewGame,
-        Options
+        GraphicsSettings,
+        SoundEnabled,
+        BgmVolume,
+        SeVolume
     }
 
-    readonly ILogger<MainViewModel> logger;
-    ModeSelectType currentMode;
-    VisualElement? beforeFocusedElement;
+    readonly ILogger<OptionsViewModel> logger;
+    OptionsType currentOptions;
     DisposableBag bag;
-
-    public Func<SceneTransitionState, CancellationToken, UniTask>? OpenContinueAsync { get; set; }
-    public Func<SceneTransitionState, CancellationToken, UniTask>? OpenOptionsAsync { get; set; }
     
-    public MainViewModel(ILogger<MainViewModel> logger,
-                          MainView view,
-                          UIDocument rootDocument)
-        : base(view, rootDocument, new FadeViewTransition(rootDocument))
+    public OptionsViewModel(ILogger<OptionsViewModel> logger,
+                            OptionsView view,
+                            UIDocument rootDocument)
+        : base(view, rootDocument, new TransparentViewTransition(view.OwnView))
     {
         this.logger = logger;
     }
+    
+    public Func<SceneTransitionState, CancellationToken, UniTask>? CloseOptionsAsync { get; set; }
 
     public async UniTask InitializeAsync(ReadOnlyReactiveProperty<TitleViewType> currentType, CancellationToken ct)
     {
         logger.ZLogTrace($"Called {GetType().Name}.InitializeAsync");
-        
-        currentMode = ModeSelectType.Continue;
-        
+
+        currentOptions = OptionsType.GraphicsSettings;
+
         view.OwnView.RegisterCallbackAsObservable<NavigationMoveEvent, ReadOnlyReactiveProperty<TitleViewType>>(currentType)
-            .Where(static x => x.arg.CurrentValue == TitleViewType.Main) 
+            .Where(static x => x.arg.CurrentValue == TitleViewType.Options) 
             .Select(static x => x.evt)
             .Subscribe(OnNavigationMove)
             .AddTo(ref bag);
         
         view.OwnView.RegisterCallbackAsObservable<NavigationSubmitEvent, ReadOnlyReactiveProperty<TitleViewType>>(currentType)
-            .Where(static x => x.arg.CurrentValue == TitleViewType.Main) 
+            .Where(static x => x.arg.CurrentValue == TitleViewType.Options) 
             .Select(static x => x.evt)
-            .SubscribeAwait(async (e, ct2) => await OnNavigationSubmit(e, ct2))
+            .Subscribe(OnNavigationSubmit)
+            .AddTo(ref bag);
+        
+        view.OwnView.RegisterCallbackAsObservable<NavigationCancelEvent, ReadOnlyReactiveProperty<TitleViewType>>(currentType)
+            .Where(static x => x.arg.CurrentValue == TitleViewType.Options) 
+            .Select(static x => x.evt)
+            .SubscribeAwait(async (x, ct2) => await OnNavigationCancel(x, ct2))
             .AddTo(ref bag);
         
         view.OwnView.RegisterCallbackAsObservable<MouseDownEvent, ReadOnlyReactiveProperty<TitleViewType>>(currentType)
-            .Where(static x => x.arg.CurrentValue == TitleViewType.Main) 
+            .Where(static x => x.arg.CurrentValue == TitleViewType.Options) 
             .Select(static x => x.evt)
             .Subscribe(OnMouseDown)
             .AddTo(ref bag);
-        
-        view.AppInfoVersionTextElement.text = $"Ver.{Application.version}";
-        view.AppInfoCompanyTextElement.text = $"Author {Application.companyName}";
-        
+
         await UniTask.Yield(ct);
     }
 
     void OnNavigationMove(NavigationMoveEvent e)
     {
         logger.ZLogTrace($"Called {GetType().Name}.OnNavigationMove");
-
+        
         const int min = 0;
-        const int max = (int)ModeSelectType.Options;
-        var value = (int)currentMode;
+        const int max = (int)OptionsType.SeVolume;
+        var value = (int)currentOptions;
 
         switch (e.direction)
         {
             case NavigationMoveEvent.Direction.Up:
             {
-                currentMode = (ModeSelectType)Math.Max(value - 1, min);
+                currentOptions = (OptionsType)Math.Max(value - 1, min);
                 if (value <= min)
                 {
                     view.OwnView.focusController.IgnoreEvent(e);
@@ -89,7 +90,7 @@ public sealed class MainViewModel : ViewModelBase<MainView>
             }
             case NavigationMoveEvent.Direction.Down:
             {
-                currentMode = (ModeSelectType)Math.Min(value + 1, max);
+                currentOptions = (OptionsType)Math.Min(value + 1, max);
                 if (value >= max)
                 {
                     view.OwnView.focusController.IgnoreEvent(e);
@@ -99,55 +100,61 @@ public sealed class MainViewModel : ViewModelBase<MainView>
         }
     }
 
-    async UniTask OnNavigationSubmit(NavigationSubmitEvent e, CancellationToken ct)
+    void OnNavigationSubmit(NavigationSubmitEvent e)
     {
         logger.ZLogTrace($"Called {GetType().Name}.OnNavigationSubmit");
 
-        switch (currentMode)
+        switch (currentOptions)
         {
-            case ModeSelectType.Continue:
+            case OptionsType.GraphicsSettings:
             {
-                logger.ZLogTrace($"You selected Continue");
-                beforeFocusedElement = view.ContinueTextElement;
-                await (OpenContinueAsync?.Invoke(SceneTransitionState.Next, ct) ?? UniTask.CompletedTask);
+                view.GraphicsSettingsOptions.FocusDropdown();
                 break;
             }
-            case ModeSelectType.NewGame:
+            case OptionsType.SoundEnabled:
             {
-                logger.ZLogTrace($"You selected NewGame");
-                beforeFocusedElement = view.NewGameTextElement;
+                view.SoundEnabledOptions.FocusButton();
                 break;
             }
-            case ModeSelectType.Options:
+            case OptionsType.BgmVolume:
             {
-                logger.ZLogTrace($"You selected Options");
-                beforeFocusedElement = view.OptionsTextElement;
-                await (OpenOptionsAsync?.Invoke(SceneTransitionState.Next, ct) ?? UniTask.CompletedTask);
+                view.BgmVolumeOptions.FocusSlider();
+                break;
+            }
+            case OptionsType.SeVolume:
+            {
+                view.BgmVolumeOptions.FocusSlider();
                 break;
             }
         }
     }
-
+    
     void OnMouseDown(MouseDownEvent e)
     {
         logger.ZLogTrace($"Called {GetType().Name}.OnMouseDown");
         
         view.OwnView.focusController.IgnoreEvent(e);
 
-        var element = currentMode switch
+        VisualElement? element = currentOptions switch
         {
-            ModeSelectType.Continue => view.ContinueTextElement,
-            ModeSelectType.NewGame => view.NewGameTextElement,
-            ModeSelectType.Options => view.OptionsTextElement,
+            OptionsType.GraphicsSettings => view.GraphicsSettingsOptions,
+            OptionsType.SoundEnabled => view.SoundEnabledOptions,
+            OptionsType.BgmVolume => view.BgmVolumeOptions,
+            OptionsType.SeVolume => view.SeVolumeOptions,
             _ => null
         };
         
         view.OwnView.schedule.Execute(_ => element?.Focus());
     }
-    
+
+    async UniTask OnNavigationCancel(NavigationCancelEvent _, CancellationToken ct)
+    {
+        await (CloseOptionsAsync?.Invoke(SceneTransitionState.Previous, ct) ?? UniTask.CompletedTask);
+    }
+
     public override void PreOpen()
     {
-        (beforeFocusedElement ?? view.ContinueTextElement).Focus();
+        view.GraphicsSettingsOptions.Focus();
     }
 
     protected override void OnDispose()

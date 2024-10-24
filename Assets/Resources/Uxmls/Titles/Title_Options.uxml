@@ -1,0 +1,15 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" xmlns:banana="BananaMan.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/Style%20Sheets/Runtime/Title_Options.uss?fileID=7433441132597879392&amp;guid=e7524722f5184a78a883cdf0709e0c73&amp;type=3#Title_Options" />
+    <banana:RootUIElement>
+        <engine:VisualElement name="background" />
+        <engine:VisualElement name="main-view">
+            <banana:ZenKakuLargeTextElement name="options-header-text" text="&lt;style=&quot;Bold&quot;&gt; Options" />
+            <engine:VisualElement name="options-list-view">
+                <banana:OptionsDropdownUIElement name="quality-settings-options" focusable="true" text="&lt;Style=&quot;Bold&quot;&gt; Graphics Settings" />
+                <banana:OptionsButtonUIElement name="sound-enabled-options" focusable="true" text="&lt;Style=&quot;Bold&quot;&gt; Sound" />
+                <banana:OptionsSliderUIElement name="bgm-volume-options" focusable="true" text="&lt;Style=&quot;Bold&quot;&gt; Bgm Volume" />
+                <banana:OptionsSliderUIElement name="se-volume-options" focusable="true" text="&lt;Style=&quot;Bold&quot;&gt; Se Volume" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </banana:RootUIElement>
+</engine:UXML>

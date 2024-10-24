@@ -13,4 +13,13 @@ public static class UIElementExtensions
             h => source.RegisterCallback(h, trickleDown),
             h => source.UnregisterCallback(h, trickleDown));
     }
+    
+    public static Observable<(TEventType evt, TArgType arg)> RegisterCallbackAsObservable<TEventType, TArgType>(this VisualElement source, TArgType arg, TrickleDown trickleDown = TrickleDown.NoTrickleDown)
+        where TEventType : EventBase<TEventType>, new()
+    {
+        return Observable.FromEvent<EventCallback<TEventType, TArgType>, (TEventType, TArgType)>(
+            h => (x, y) => h((x, y)),
+            h => source.RegisterCallback(h, arg, trickleDown),
+            h => source.UnregisterCallback(h, trickleDown));
+    }
 }

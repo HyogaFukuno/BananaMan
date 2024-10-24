@@ -65,6 +65,6 @@ public abstract class ViewModelBase<TView> : IDisposable where TView : ViewBase
 
     public void Dispose() => OnDispose();
     
-    protected abstract void PreOpen();
+    public abstract void PreOpen();
     protected abstract void OnDispose();
 }
