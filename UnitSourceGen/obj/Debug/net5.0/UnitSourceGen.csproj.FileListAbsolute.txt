@@ -1,0 +1,12 @@
+/Users/hyouga/Documents/MyWork/HumanAcademy/BananaMan/UnitSourceGen/obj/Debug/net5.0/UnitSourceGen.GeneratedMSBuildEditorConfig.editorconfig
+/Users/hyouga/Documents/MyWork/HumanAcademy/BananaMan/UnitSourceGen/obj/Debug/net5.0/UnitSourceGen.AssemblyInfoInputs.cache
+/Users/hyouga/Documents/MyWork/HumanAcademy/BananaMan/UnitSourceGen/obj/Debug/net5.0/UnitSourceGen.AssemblyInfo.cs
+/Users/hyouga/Documents/MyWork/HumanAcademy/BananaMan/UnitSourceGen/obj/Debug/net5.0/UnitSourceGen.csproj.CoreCompileInputs.cache
+/Users/hyouga/Documents/MyWork/HumanAcademy/BananaMan/UnitSourceGen/obj/Debug/net5.0/UnitSourceGen.sourcelink.json
+/Users/hyouga/Documents/MyWork/HumanAcademy/BananaMan/UnitSourceGen/bin/Debug/net5.0/UnitSourceGen.deps.json
+/Users/hyouga/Documents/MyWork/HumanAcademy/BananaMan/UnitSourceGen/bin/Debug/net5.0/UnitSourceGen.dll
+/Users/hyouga/Documents/MyWork/HumanAcademy/BananaMan/UnitSourceGen/bin/Debug/net5.0/UnitSourceGen.pdb
+/Users/hyouga/Documents/MyWork/HumanAcademy/BananaMan/UnitSourceGen/obj/Debug/net5.0/UnitSourceGen.dll
+/Users/hyouga/Documents/MyWork/HumanAcademy/BananaMan/UnitSourceGen/obj/Debug/net5.0/refint/UnitSourceGen.dll
+/Users/hyouga/Documents/MyWork/HumanAcademy/BananaMan/UnitSourceGen/obj/Debug/net5.0/UnitSourceGen.pdb
+/Users/hyouga/Documents/MyWork/HumanAcademy/BananaMan/UnitSourceGen/obj/Debug/net5.0/ref/UnitSourceGen.dll

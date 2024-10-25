@@ -1,4 +1,5 @@
 using System.Threading;
+using BananaMan.Audios.Core;
 using BananaMan.Common.ViewModels;
 using BananaMan.Titles.Core;
 using BananaMan.Titles.ViewModels;
@@ -14,16 +15,22 @@ public sealed class TitlePresenter : IAsyncStartable
 {
     readonly ILogger<TitlePresenter> logger;
     readonly TitleModel core;
+    readonly AudioPlayer audioPlayer;
+    readonly IAudioTable audioTable;
     readonly MainViewModel mainViewModel;
     readonly OptionsViewModel optionsViewModel;
 
     public TitlePresenter(ILogger<TitlePresenter> logger,
                           TitleModel core,
+                          AudioPlayer audioPlayer,
+                          IAudioTable audioTable,
                           MainViewModel mainViewModel,
                           OptionsViewModel optionsViewModel)
     {
         this.logger = logger;
         this.core = core;
+        this.audioPlayer = audioPlayer;
+        this.audioTable = audioTable;
         this.mainViewModel = mainViewModel;
         this.optionsViewModel = optionsViewModel;
     }
@@ -33,6 +40,8 @@ public sealed class TitlePresenter : IAsyncStartable
         logger.ZLogTrace($"Called {GetType().Name}.StartAsync");
         
         mainViewModel.AddView(addedTransition: true);
+
+        await audioPlayer.InitializeAsync(ct);
         
         await mainViewModel.InitializeAsync(core.CurrentViewType, ct);
         await optionsViewModel.InitializeAsync(core.CurrentViewType, ct);
@@ -41,8 +50,12 @@ public sealed class TitlePresenter : IAsyncStartable
         mainViewModel.OpenOptionsAsync = OpenOptionsAsync;
         optionsViewModel.CloseOptionsAsync = CloseOptionsAsync;
         
-        await mainViewModel.OpenWithoutAddAsync(SceneTransitionState.Next, ct);
+        await UniTask.WhenAll(
+            mainViewModel.OpenWithoutAddAsync(SceneTransitionState.Next, ct),
+            audioPlayer.PlayBgmAsync(audioTable.TitleBgmReference, ct));
     }
+    
+    
 
     async UniTask OpenOptionsAsync(SceneTransitionState state, CancellationToken ct)
     {

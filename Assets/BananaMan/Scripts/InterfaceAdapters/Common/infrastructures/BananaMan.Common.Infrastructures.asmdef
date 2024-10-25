@@ -2,6 +2,9 @@
     "name": "BananaMan.Common.Infrastructures",
     "rootNamespace": "",
     "references": [
+        "GUID:e375b17b323e4eb6b7b4c04fb8d8a544",
+        "GUID:86caf7d99b37f4706b63446514781cfe",
+        "GUID:d040f456afdad4c74aeb6ad5436b5513",
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
         "GUID:2b78dc61ba35e42c39ba2aabce11b6c4"
     ],

@@ -1,0 +1,18 @@
+{
+    "name": "BananaMan.ApplicationBusinessRules.UseCases",
+    "rootNamespace": "",
+    "references": [
+        "GUID:26ed73dc5eb2b404f8b12bf86c34d0cb",
+        "GUID:da218a6db1ed4613b1f121ae3b2b0934",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}
