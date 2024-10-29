@@ -40,4 +40,8 @@ public sealed class TransparentViewTransition : IViewTransition
             .Bind(x => ownView.style.opacity = x)
             .ToUniTask(ct);
     }
+
+    public void Dispose()
+    {
+    }
 }

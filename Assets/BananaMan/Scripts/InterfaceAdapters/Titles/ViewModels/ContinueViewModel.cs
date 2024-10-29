@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -11,6 +12,7 @@ using Cysharp.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using R3;
 using UIToolkit.R3.Integration;
+using UnityEngine;
 using UnityEngine.UIElements;
 using ZLogger;
 
@@ -42,47 +44,34 @@ public sealed class ContinueViewModel : ViewModelBase<ContinueView>
         var itemsSource = saves?.OrderByDescending(static x => x.Id).ToList();
         this.saves = itemsSource;
         
-        view.OwnView.RegisterCallbackAsObservable<NavigationCancelEvent>()
-            .SubscribeAwait(async (x, ct2) => await OnNavigationCancel(x, ct2))
+        view.SaveDataListView.itemsSource = itemsSource;
+        view.SaveDataListView.makeItem = CreateSaveDataUIElement;
+        view.SaveDataListView.bindItem = OnBindSaveDataUIElement;
+        view.SaveDataListView.fixedItemHeight = 130.0f;
+        
+        view.OwnView.RegisterCallbackAsObservable<NavigationCancelEvent>(TrickleDown.TrickleDown)
+            .SubscribeAwait(async (x, ct2) => await OnNavigationCancelAsync(x, ct2))
             .AddTo(ref bag);
         
-        view.OwnView.RegisterCallbackAsObservable<MouseDownEvent, ReadOnlyReactiveProperty<TitleViewType>>(currentType)
-            .Where(static x => x.arg.CurrentValue == TitleViewType.Continue)
-            .Select(static x => x.evt)
+        view.OwnView.RegisterCallbackAsObservable<MouseDownEvent>(TrickleDown.TrickleDown)
+            .Where(_ => currentType.CurrentValue == TitleViewType.Continue)
             .Subscribe(OnMouseDown)
+            .AddTo(ref bag);
+        
+        view.SaveDataListView.SelectedIndicesChangedAsObservable()
+            .Where(_ => currentType.CurrentValue == TitleViewType.Continue)
+            .Select(x => x.FirstOrDefault())
+            .Subscribe(OnSelectedIndicesChanged)
             .AddTo(ref bag);
         
         view.SaveDataListView.ItemsChosenAsObservable()
             .Where(_ => currentType.CurrentValue == TitleViewType.Continue)
-            .Subscribe(x => logger.ZLogTrace($"ItemsChosen: {x}"))
+            .SubscribeAwait(async (_, ct2) => await OnItemsChosenAsync(ct2))
             .AddTo(ref bag);
-        
-        view.SaveDataListView.itemsSource = itemsSource;
-        view.SaveDataListView.makeItem = CreateSaveDataUIElement;
-        view.SaveDataListView.bindItem = OnBindSaveDataUIElement;
-        
-        view.SaveDataListView.fixedItemHeight = 130.0f;
-        
         
         await UniTask.Yield(ct);
     }
     
-    void OnMouseDown(MouseDownEvent e)
-    {
-        logger.ZLogTrace($"Called {GetType().Name}.OnMouseDown");
-        
-        view.OwnView.focusController.IgnoreEvent(e);
-        
-        view.OwnView.schedule.Execute(_ => view.SaveDataListView[currentSaveDataIndex]?.Focus());
-    }
-    
-    async UniTask OnNavigationCancel(NavigationCancelEvent _, CancellationToken ct)
-    {
-        logger.ZLogTrace($"Called {GetType().Name}.OnNavigationCancel");
-        
-        await (CloseContinueAsync?.Invoke(SceneTransitionState.Previous, ct) ?? UniTask.CompletedTask);
-    }
-
     static VisualElement CreateSaveDataUIElement() => new SaveDataUIElement
     {
         focusable = true,
@@ -102,10 +91,37 @@ public sealed class ContinueViewModel : ViewModelBase<ContinueView>
         saveDataElement.IsAutoSave = saves?[index].IsAutoSave;
     }
 
+    async UniTask OnNavigationCancelAsync(NavigationCancelEvent _, CancellationToken ct)
+    {
+        logger.ZLogTrace($"Called {GetType().Name}.OnNavigationCancelAsync");
+        
+        await (CloseContinueAsync?.Invoke(SceneTransitionState.Previous, ct) ?? UniTask.CompletedTask);
+    }
+    
+    void OnMouseDown(MouseDownEvent e)
+    {
+        logger.ZLogTrace($"Called {GetType().Name}.OnMouseDown");
+        
+        view.OwnView.focusController.IgnoreEvent(e);
+        view.OwnView.schedule.Execute(_ => view.SaveDataListView.SetSelection(currentSaveDataIndex));
+    }
+
+    void OnSelectedIndicesChanged(int index)
+    {
+        currentSaveDataIndex = index;
+    }
+
+    async UniTask OnItemsChosenAsync(CancellationToken ct)
+    {
+        var selectedSaveData = saves![currentSaveDataIndex];
+        logger.ZLogInformation($"You selected {selectedSaveData}");
+        await UniTask.Yield(ct);
+    }
+
     public override void PreOpen()
     {
         view.SaveDataListView.Focus();
-        view.SaveDataListView.SetSelection(0);
+        view.SaveDataListView.SetSelection(currentSaveDataIndex = 0);
     }
 
     protected override void OnDispose()

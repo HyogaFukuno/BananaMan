@@ -35,6 +35,14 @@ public static class UIElementExtensions
             h => source.selectionChanged -= h);
     }
     
+    public static Observable<IEnumerable<int>> SelectedIndicesChangedAsObservable(this ListView source)
+    {
+        return Observable.FromEvent<Action<IEnumerable<int>>, IEnumerable<int>>(
+            h => h,
+            h => source.selectedIndicesChanged += h,
+            h => source.selectedIndicesChanged -= h);
+    }
+    
     public static Observable<IEnumerable<object>> ItemsChosenAsObservable(this ListView source)
     {
         return Observable.FromEvent<Action<IEnumerable<object>>, IEnumerable<object>>(

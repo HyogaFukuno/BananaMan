@@ -42,27 +42,23 @@ public sealed class OptionsViewModel : ViewModelBase<OptionsView>
 
         currentOptions = OptionsType.GraphicsSettings;
 
-        view.OwnView.RegisterCallbackAsObservable<NavigationMoveEvent, ReadOnlyReactiveProperty<TitleViewType>>(currentType)
-            .Where(static x => x.arg.CurrentValue == TitleViewType.Options) 
-            .Select(static x => x.evt)
+        view.OwnView.RegisterCallbackAsObservable<NavigationMoveEvent>(TrickleDown.TrickleDown)
+            .Where(_ => currentType.CurrentValue == TitleViewType.Options)
             .Subscribe(OnNavigationMove)
             .AddTo(ref bag);
         
-        view.OwnView.RegisterCallbackAsObservable<NavigationSubmitEvent, ReadOnlyReactiveProperty<TitleViewType>>(currentType)
-            .Where(static x => x.arg.CurrentValue == TitleViewType.Options) 
-            .Select(static x => x.evt)
+        view.OwnView.RegisterCallbackAsObservable<NavigationSubmitEvent>(TrickleDown.TrickleDown)
+            .Where(_ => currentType.CurrentValue == TitleViewType.Options)
             .Subscribe(OnNavigationSubmit)
             .AddTo(ref bag);
         
-        view.OwnView.RegisterCallbackAsObservable<NavigationCancelEvent, ReadOnlyReactiveProperty<TitleViewType>>(currentType)
-            .Where(static x => x.arg.CurrentValue == TitleViewType.Options) 
-            .Select(static x => x.evt)
-            .SubscribeAwait(async (x, ct2) => await OnNavigationCancel(x, ct2))
+        view.OwnView.RegisterCallbackAsObservable<NavigationCancelEvent>(TrickleDown.TrickleDown)
+            .Where(_ => currentType.CurrentValue == TitleViewType.Options)
+            .SubscribeAwait(async (x, ct2) => await OnNavigationCancelAsync(x, ct2))
             .AddTo(ref bag);
         
-        view.OwnView.RegisterCallbackAsObservable<MouseDownEvent, ReadOnlyReactiveProperty<TitleViewType>>(currentType)
-            .Where(static x => x.arg.CurrentValue == TitleViewType.Options) 
-            .Select(static x => x.evt)
+        view.OwnView.RegisterCallbackAsObservable<MouseDownEvent>(TrickleDown.TrickleDown)
+            .Where(_ => currentType.CurrentValue == TitleViewType.Options)
             .Subscribe(OnMouseDown)
             .AddTo(ref bag);
 
@@ -147,9 +143,9 @@ public sealed class OptionsViewModel : ViewModelBase<OptionsView>
         view.OwnView.schedule.Execute(_ => element?.Focus());
     }
 
-    async UniTask OnNavigationCancel(NavigationCancelEvent _, CancellationToken ct)
+    async UniTask OnNavigationCancelAsync(NavigationCancelEvent _, CancellationToken ct)
     {
-        logger.ZLogTrace($"Called {GetType().Name}.OnNavigationCancel");
+        logger.ZLogTrace($"Called {GetType().Name}.OnNavigationCancelAsync");
         
         await (CloseOptionsAsync?.Invoke(SceneTransitionState.Previous, ct) ?? UniTask.CompletedTask);
     }

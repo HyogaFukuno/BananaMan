@@ -44,21 +44,18 @@ public sealed class MainViewModel : ViewModelBase<MainView>
         
         currentMode = ModeSelectType.Continue;
         
-        view.OwnView.RegisterCallbackAsObservable<NavigationMoveEvent, ReadOnlyReactiveProperty<TitleViewType>>(currentType)
-            .Where(static x => x.arg.CurrentValue == TitleViewType.Main) 
-            .Select(static x => x.evt)
+        view.OwnView.RegisterCallbackAsObservable<NavigationMoveEvent>(TrickleDown.TrickleDown)
+            .Where(_ => currentType.CurrentValue == TitleViewType.Main)
             .Subscribe(OnNavigationMove)
             .AddTo(ref bag);
         
-        view.OwnView.RegisterCallbackAsObservable<NavigationSubmitEvent, ReadOnlyReactiveProperty<TitleViewType>>(currentType)
-            .Where(static x => x.arg.CurrentValue == TitleViewType.Main) 
-            .Select(static x => x.evt)
-            .SubscribeAwait(async (e, ct2) => await OnNavigationSubmit(e, ct2))
+        view.OwnView.RegisterCallbackAsObservable<NavigationSubmitEvent>(TrickleDown.TrickleDown)
+            .Where(_ => currentType.CurrentValue == TitleViewType.Main)
+            .SubscribeAwait(async (e, ct2) => await OnNavigationSubmitAsync(e, ct2))
             .AddTo(ref bag);
         
-        view.OwnView.RegisterCallbackAsObservable<MouseDownEvent, ReadOnlyReactiveProperty<TitleViewType>>(currentType)
-            .Where(static x => x.arg.CurrentValue == TitleViewType.Main) 
-            .Select(static x => x.evt)
+        view.OwnView.RegisterCallbackAsObservable<MouseDownEvent>(TrickleDown.TrickleDown)
+            .Where(_ => currentType.CurrentValue == TitleViewType.Main)
             .Subscribe(OnMouseDown)
             .AddTo(ref bag);
         
@@ -99,10 +96,10 @@ public sealed class MainViewModel : ViewModelBase<MainView>
         }
     }
 
-    async UniTask OnNavigationSubmit(NavigationSubmitEvent e, CancellationToken ct)
+    async UniTask OnNavigationSubmitAsync(NavigationSubmitEvent _, CancellationToken ct)
     {
-        logger.ZLogTrace($"Called {GetType().Name}.OnNavigationSubmit");
-
+        logger.ZLogTrace($"Called {GetType().Name}.OnNavigationSubmitAsync");
+        
         switch (currentMode)
         {
             case ModeSelectType.Continue:

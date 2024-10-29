@@ -2,8 +2,8 @@
     "name": "BananaMan.Titles.Views",
     "rootNamespace": "",
     "references": [
-        "GUID:3002234ff3c7441a8ae543714b56c1b4",
-        "GUID:f21de76b327f84093a3c998d632a9483"
+        "BananaMan.Common.Views",
+        "BananaMan.UIElements"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

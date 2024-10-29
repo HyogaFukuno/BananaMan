@@ -5,7 +5,6 @@
         <engine:VisualElement name="main-view">
             <banana:ZenKakuNormalTextElement name="continue-header-text" text="&lt;style=&quot;Bold&quot;&gt; Select save data to load." />
             <engine:ListView name="save-data-list-view" />
-            <engine:Button text="Button" />
         </engine:VisualElement>
     </banana:RootUIElement>
 </engine:UXML>

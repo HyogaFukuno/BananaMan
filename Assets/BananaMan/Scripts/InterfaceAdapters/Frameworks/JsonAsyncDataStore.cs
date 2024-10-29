@@ -30,11 +30,13 @@ public sealed class JsonAsyncDataStore<T> : IAsyncDataStore<T>
 
     public async UniTask StoreAsync(T? data, CancellationToken ct)
     {
-        await using (UniTask.ReturnToMainThread());
-        await UniTask.SwitchToThreadPool();
-        await using var stream = new FileStream(path, FileMode.Create);
-        var bytes = JsonSerializer.SerializeToUtf8Bytes(data);
+        await using (UniTask.ReturnToMainThread())
+        {
+            await UniTask.SwitchToThreadPool();
+            await using var stream = new FileStream(path, FileMode.Create);
+            var bytes = JsonSerializer.SerializeToUtf8Bytes(data);
         
-        await stream.WriteAsync(bytes, ct);
+            await stream.WriteAsync(bytes, ct);
+        }
     }
 }

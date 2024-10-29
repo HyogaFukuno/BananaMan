@@ -19,7 +19,7 @@ public partial class SaveDataUIElement : VisualElement
     
     public int Index { get; set; }
 
-    public Sprite SavedScreenshot
+    public Sprite? SavedScreenshot
     {
         set => savedScreenshotElement.style.backgroundImage = Background.FromSprite(value);
     }

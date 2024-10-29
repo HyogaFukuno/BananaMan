@@ -1,9 +1,10 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
 namespace BananaMan.Common.ViewModels;
 
-public interface IViewTransition
+public interface IViewTransition : IDisposable
 {
     void AddTransition();
     void RemoveTransition();

@@ -2,9 +2,9 @@
     "name": "BananaMan.Frameworks",
     "rootNamespace": "",
     "references": [
-        "GUID:26ed73dc5eb2b404f8b12bf86c34d0cb",
-        "GUID:da218a6db1ed4613b1f121ae3b2b0934",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "BananaMan.EnterpriseBusinessRules",
+        "BananaMan.ApplicationBusinessRules.Interfaces",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

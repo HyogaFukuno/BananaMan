@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using LitMotion;
@@ -18,6 +19,7 @@ public sealed class FadeViewTransition : IViewTransition
     public FadeViewTransition(UIDocument rootDocument)
     {
         this.rootDocument = rootDocument;
+        fadeViewElement.RegisterCallback<MouseDownEvent>(OnMouseDownEvent);
     }
 
     public void AddTransition()
@@ -62,4 +64,11 @@ public sealed class FadeViewTransition : IViewTransition
             .Bind(x => fadeViewElement.style.opacity = x)
             .ToUniTask(ct);
     }
+
+    public void Dispose()
+    {
+        fadeViewElement.UnregisterCallback<MouseDownEvent>(OnMouseDownEvent);
+    }
+    
+    void OnMouseDownEvent(MouseDownEvent e) => fadeViewElement.focusController.IgnoreEvent(e);
 }
