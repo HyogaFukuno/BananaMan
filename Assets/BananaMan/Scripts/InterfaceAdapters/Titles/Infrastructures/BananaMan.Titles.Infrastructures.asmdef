@@ -1,7 +1,12 @@
 {
     "name": "BananaMan.Titles.Infrastructures",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "BananaMan.Titles.Presenter",
+        "BananaMan.Titles.ViewModels",
+        "BananaMan.Titles.Views",
+        "VContainer"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

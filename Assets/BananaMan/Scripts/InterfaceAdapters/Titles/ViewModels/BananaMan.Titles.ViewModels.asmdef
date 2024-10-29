@@ -2,10 +2,10 @@
     "name": "BananaMan.Titles.ViewModels",
     "rootNamespace": "",
     "references": [
-        "GUID:dff4779fc537448ce9aa69ac5cef0365",
-        "GUID:3002234ff3c7441a8ae543714b56c1b4",
-        "GUID:7fe26489daf31491daed9277382fe71c",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "BananaMan.Common.ViewModels",
+        "BananaMan.Common.Views",
+        "BananaMan.Titles.Views",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
