@@ -10,6 +10,8 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
+.DS_Store
+
 # NuGetForUnity's Packages
 !Assets/Packages/
 
