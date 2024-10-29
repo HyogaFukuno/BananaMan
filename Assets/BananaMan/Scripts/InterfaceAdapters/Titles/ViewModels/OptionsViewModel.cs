@@ -149,6 +149,8 @@ public sealed class OptionsViewModel : ViewModelBase<OptionsView>
 
     async UniTask OnNavigationCancel(NavigationCancelEvent _, CancellationToken ct)
     {
+        logger.ZLogTrace($"Called {GetType().Name}.OnNavigationCancel");
+        
         await (CloseOptionsAsync?.Invoke(SceneTransitionState.Previous, ct) ?? UniTask.CompletedTask);
     }
 

@@ -84,6 +84,12 @@ MonoBehaviour:
   gameOptions: {fileID: 11400000, guid: 249b004806c1b4be79d2ab313faeddfb, type: 2}
   audioTable: {fileID: 11400000, guid: 891cdddf46b454212a0589a36ac0ecdb, type: 2}
   audioContainer: {fileID: 1374066916808261865}
+  preloadReferences:
+  - m_AssetGUID: 1445f0c587ec74c299882e3fb1a18631
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   audioPlayerSettings:
     maxBgmSources: 2
     maxSeSources: 12

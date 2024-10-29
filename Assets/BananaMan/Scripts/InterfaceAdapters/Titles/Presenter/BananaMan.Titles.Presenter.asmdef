@@ -2,6 +2,8 @@
     "name": "BananaMan.Titles.Presenter",
     "rootNamespace": "",
     "references": [
+        "GUID:26ed73dc5eb2b404f8b12bf86c34d0cb",
+        "GUID:a0004535644b467a8a3cdde4498acf8a",
         "GUID:dff4779fc537448ce9aa69ac5cef0365",
         "GUID:3002234ff3c7441a8ae543714b56c1b4",
         "GUID:86caf7d99b37f4706b63446514781cfe",

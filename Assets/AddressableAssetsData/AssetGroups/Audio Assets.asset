@@ -10,14 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: Audio Assets
   m_EditorClassIdentifier: 
-  m_GroupName: Default Local Group
-  m_GUID: 2ccf0e7614ede4b099ac1a1aa44d05d2
-  m_SerializeEntries: []
+  m_GroupName: Audio Assets
+  m_GUID: 7b4ee7ac273ac47f98c217eb20f10ea3
+  m_SerializeEntries:
+  - m_GUID: 1445f0c587ec74c299882e3fb1a18631
+    m_Address: audio_bgm_title
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ff6a212057ba14c0c8d97022438395e4, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: e54db18c10d9c4b0c90344456b14b4bf, type: 2}
-    - {fileID: 11400000, guid: 47c3abee09c4e42c691a4a82452a1842, type: 2}
+    - {fileID: 11400000, guid: ba0889f6df00948e09586c66eb797c92, type: 2}
+    - {fileID: 11400000, guid: 9412221988ffe4baf8007f7e98d37793, type: 2}

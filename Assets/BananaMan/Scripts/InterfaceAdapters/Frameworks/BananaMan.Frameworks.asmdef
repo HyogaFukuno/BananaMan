@@ -1,5 +1,5 @@
 {
-    "name": "BananaMan.InterfaceAdapters.Frameworks",
+    "name": "BananaMan.Frameworks",
     "rootNamespace": "",
     "references": [
         "GUID:26ed73dc5eb2b404f8b12bf86c34d0cb",

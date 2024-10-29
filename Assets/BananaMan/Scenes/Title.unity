@@ -154,6 +154,7 @@ MonoBehaviour:
   autoInjectGameObjects: []
   rootDocument: {fileID: 2143963595}
   mainTreeAsset: {fileID: 9197481963319205126, guid: 6c9300e801df44bbe8d422013f32bf14, type: 3}
+  continueTreeAsset: {fileID: 9197481963319205126, guid: e80b6716d889460eabd19a88a7da4f49, type: 3}
   optionsTreeAsset: {fileID: 9197481963319205126, guid: 86a8a959146647588f8fab2b59e499fe, type: 3}
 --- !u!4 &584198700
 Transform:

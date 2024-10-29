@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using R3;
 using UnityEngine.UIElements;
 
@@ -5,6 +7,7 @@ namespace UIToolkit.R3.Integration;
 
 public static class UIElementExtensions
 {
+    // VisualElement's Observables.
     public static Observable<TEventType> RegisterCallbackAsObservable<TEventType>(this VisualElement source, TrickleDown trickleDown = TrickleDown.NoTrickleDown)
         where TEventType : EventBase<TEventType>, new()
     {
@@ -21,5 +24,22 @@ public static class UIElementExtensions
             h => (x, y) => h((x, y)),
             h => source.RegisterCallback(h, arg, trickleDown),
             h => source.UnregisterCallback(h, trickleDown));
+    }
+    
+    // ListView's Observables.
+    public static Observable<IEnumerable<object>> SelectionChangedAsObservable(this ListView source)
+    {
+        return Observable.FromEvent<Action<IEnumerable<object>>, IEnumerable<object>>(
+            h => h,
+            h => source.selectionChanged += h,
+            h => source.selectionChanged -= h);
+    }
+    
+    public static Observable<IEnumerable<object>> ItemsChosenAsObservable(this ListView source)
+    {
+        return Observable.FromEvent<Action<IEnumerable<object>>, IEnumerable<object>>(
+            h => h,
+            h => source.itemsChosen += h,
+            h => source.itemsChosen -= h);
     }
 }

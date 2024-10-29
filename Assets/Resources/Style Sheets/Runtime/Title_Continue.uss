@@ -1,0 +1,111 @@
+TemplateContainer {
+    position: absolute;
+}
+
+#main-view {
+    width: 100%;
+    height: 100%;
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(20, 20, 20, 0.8);
+}
+
+#continue-header-text {
+    padding-top: 36px;
+}
+
+#save-data-list-view {
+    width: 100%;
+    height: 100%;
+    padding: 24px 25%;
+}
+
+#save-data-list-view Scroller {
+    width: 0;
+}
+
+#save-data-list-view RepeatButton {
+    display: none;
+}
+
+#save-data-list-view #unity-drag-container {
+    display: none;
+}
+
+ZenKakuNormalTextElement {
+    -unity-font-style: italic;
+    -unity-text-align: middle-center;
+}
+
+ZenKakuSmallTextElement {
+    -unity-font-style: italic;
+    -unity-text-align: middle-left;
+}
+
+SaveDataUIElement {
+    flex-direction: row;
+    width: 100%;
+    height: 130px;
+    opacity: 0.6;
+    background-color: rgba(0,0,0,0);
+    transition-duration: 0.2s;
+}
+
+SaveDataUIElement #background {
+    position: relative;
+    flex-direction: row;
+    width: 568px;
+    height: 110px;
+    border-radius: 6px;
+    margin: auto;
+    margin-top: 0;
+    padding: 4px;
+    background-color: rgba(60, 60, 60, 0.8);
+    transition-duration: 0.2s;
+}
+
+SaveDataUIElement #saved-screenshot {
+    width: 240px;
+    height: 100%;
+    background-color: whitesmoke;
+}
+
+SaveDataUIElement #text-area {
+    flex-direction: column;
+    width: 328px;
+    height: 100%;
+    padding-top: 12px;
+    padding-left: 12px;
+}
+
+SaveDataUIElement #saved-location-text {
+    -unity-text-align: middle-left;
+}
+
+SaveDataUIElement #auto-save-text {
+    margin-top: auto;
+    -unity-font-style: normal;
+    -unity-text-align: middle-right;
+}
+
+SaveDataUIElement:hover {
+    opacity: 0.8;
+}
+
+SaveDataUIElement:hover #background {
+    background-color: rgba(80, 80, 80, 0.8);
+}
+
+SaveDataUIElement:checked {
+    opacity: 1.0;
+}
+
+SaveDataUIElement:checked #background {
+    background-color: rgba(120, 120, 120, 0.8);
+}

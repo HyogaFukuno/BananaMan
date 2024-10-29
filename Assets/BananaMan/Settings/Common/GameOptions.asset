@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GameOptions
   m_EditorClassIdentifier: 
   graphicsSettings: 0
-  soundEnabled: 0
-  bgmVolume: 0
-  seVolume: 0
+  soundEnabled: 1
+  bgmVolume: 1
+  seVolume: 1

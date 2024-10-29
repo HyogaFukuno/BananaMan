@@ -2,13 +2,14 @@
     "name": "BananaMan.Titles.ViewModels",
     "rootNamespace": "",
     "references": [
-        "GUID:dff4779fc537448ce9aa69ac5cef0365",
-        "GUID:3002234ff3c7441a8ae543714b56c1b4",
-        "GUID:1546f65838ed43b7b35155c31e1c6db3",
-        "GUID:7fe26489daf31491daed9277382fe71c",
-        "GUID:f21de76b327f84093a3c998d632a9483",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:242eeb135dcb4a789f9e4d170e1af316"
+        "BananaMan.EnterpriseBusinessRules",
+        "BananaMan.Common.ViewModels",
+        "BananaMan.Common.Views",
+        "BananaMan.Titles.Core",
+        "BananaMan.Titles.Views",
+        "BananaMan.UIElements",
+        "UniTask",
+        "UIToolkit.R3.Integration"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
